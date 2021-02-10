@@ -36,7 +36,7 @@ EXTRA_DIST = \
 	INSTALL \
 	QUICKSTART \
 	README \
-	SPONSORS \
+	SPONSORS.list \
 	bootstrap.sh \
 	po4a.conf
 

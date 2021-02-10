@@ -29,31 +29,31 @@ include $(top_srcdir)/doc/manuals/Substitute.am
 ## Several files need to be shared but we cannot depend on the other
 ## directories to be built.
 test_tools.cc: $(top_srcdir)/test-suite/test_tools.cc
-	cp $(top_srcdir)/test-suite/test_tools.cc $@
+	install -D $(top_srcdir)/test-suite/test_tools.cc $@
 
 tests/stub_debug.cc: $(top_srcdir)/src/tests/stub_debug.cc
-	cp $(top_srcdir)/src/tests/stub_debug.cc $@
+	install -D $(top_srcdir)/src/tests/stub_debug.cc $@
 
 Here.cc: $(top_srcdir)/src/base/Here.cc
-	cp $(top_srcdir)/src/base/Here.cc $@
+	install -D $(top_srcdir)/src/base/Here.cc $@
 
 CharacterSet.cc: $(top_srcdir)/src/base/CharacterSet.cc
-	cp $(top_srcdir)/src/base/CharacterSet.cc $@
+	install -D $(top_srcdir)/src/base/CharacterSet.cc $@
 
 MemBuf.cc: $(top_srcdir)/src/MemBuf.cc
-	cp $(top_srcdir)/src/MemBuf.cc $@
+	install -D $(top_srcdir)/src/MemBuf.cc $@
 
 time.cc: $(top_srcdir)/src/time.cc
-	cp $(top_srcdir)/src/time.cc $@
+	install -D $(top_srcdir)/src/time.cc $@
 
 tests/stub_cbdata.cc: $(top_srcdir)/src/tests/stub_cbdata.cc
-	cp $(top_srcdir)/src/tests/stub_cbdata.cc $@
+	install -D $(top_srcdir)/src/tests/stub_cbdata.cc $@
 
 tests/stub_libmem.cc: $(top_srcdir)/src/tests/stub_libmem.cc
-	cp $(top_srcdir)/src/tests/stub_libmem.cc $@
+	install -D $(top_srcdir)/src/tests/stub_libmem.cc $@
 
 tests/STUB.h: $(top_srcdir)/src/tests/STUB.h
-	cp $(top_srcdir)/src/tests/STUB.h $@
+	install -D $(top_srcdir)/src/tests/STUB.h $@
 
 # stock tools for unit tests - library independent versions of dlink_list
 # etc.
@@ -72,18 +72,18 @@ DEFAULT_CACHEMGR_CONFIG = $(sysconfdir)/cachemgr.conf
 libexec_PROGRAMS = cachemgr$(CGIEXT)
 
 cachemgr__CGIEXT__SOURCES = \
+	cachemgr.cc \
 	CharacterSet.cc \
 	Here.cc \
 	MemBuf.cc \
-	cachemgr.cc \
 	test_tools.cc \
 	time.cc
 
 nodist_cachemgr__CGIEXT__SOURCES = \
+	tests/STUB.h \
 	tests/stub_cbdata.cc \
 	tests/stub_debug.cc \
-	tests/stub_libmem.cc \
-	tests/STUB.h
+	tests/stub_libmem.cc
 
 cachemgr__CGIEXT__CXXFLAGS = -DDEFAULT_CACHEMGR_CONFIG=\"$(DEFAULT_CACHEMGR_CONFIG)\" $(AM_CXXFLAGS)
 

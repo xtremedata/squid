@@ -5,11 +5,12 @@
 ## Please see the COPYING and CONTRIBUTORS files for details.
 ##
 
-AC_INIT([Squid Web Proxy],[6.0.0-VCS],[http://bugs.squid-cache.org/],[squid])
+AC_INIT([Squid Web Proxy],[6.0.0],[http://bugs.squid-cache.org/],[squid])
 AC_PREREQ(2.61)
 AC_CONFIG_HEADERS([include/autoconf.h])
 AC_CONFIG_AUX_DIR(cfgaux)
 AC_CONFIG_SRCDIR([src/main.cc])
+AC_CONFIG_MACRO_DIR([libltdl/m4])
 AM_INIT_AUTOMAKE([tar-ustar nostdinc subdir-objects dist-xz])
 AC_REVISION($Revision$)dnl
 AC_PREFIX_DEFAULT(/usr/local/squid)
@@ -101,7 +102,7 @@ if test "x$user_cxx" = "x"; then
 fi
 
 # test for programs
-AC_PROG_RANLIB
+#AC_PROG_RANLIB
 AC_PROG_CPP
 AC_PROG_INSTALL
 AC_PROG_LN_S
@@ -183,6 +184,7 @@ then
 	top_build_prefix=${ac_top_build_prefix}
 	AC_SUBST(top_build_prefix)
 fi
+LT_CONFIG_LTDL_DIR([libltdl])
 LTDL_INIT
 
 dnl LibTool environment is now prepared for setup. Check that it is usable and initialize.
@@ -3668,6 +3670,7 @@ dnl Clean up after OSF/1 core dump bug
 rm -f core 
 
 AC_CONFIG_FILES([
+	squid.spec
 	Makefile
 	compat/Makefile
 	contrib/Makefile

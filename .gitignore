@@ -1,0 +1,10 @@
+**/*.lo
+**/*.la
+**/*.o
+**/*.in
+**/Makefile
+**/errors/*.lang
+squid*.tar.gz
+squid*.tar.bz2
+squid*.tar.xz
+!squid.spec.in

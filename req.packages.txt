@@ -1,0 +1,1 @@
+sudo yum install libtool-ltdl libtool-ltdl-devel openssl-devel expat libxml2 expat-devel libxml2-devel openssl

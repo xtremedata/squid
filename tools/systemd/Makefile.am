@@ -6,3 +6,6 @@
 ##
 
 EXTRA_DIST = squid.service
+
+systemdsysdir = $(sysconfigdir)/systemd/system
+systemdsys_DATA = squid.service

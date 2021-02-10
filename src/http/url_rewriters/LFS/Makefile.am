@@ -8,9 +8,9 @@
 include $(top_srcdir)/src/Common.am
 
 # C/C++ version of the helper (circa. 1996)
-# libexec_PROGRAMS = url_lfs_rewrite
-# url_lfs_rewrite_SOURCES = rredir.cc
-# url_lfs_rewrite_LDADD = $(COMPAT_LIB)
+#libexec_PROGRAMS = url_lfs_rewrite
+#url_lfs_rewrite_SOURCES = rredir.cc
+#url_lfs_rewrite_LDADD = $(COMPAT_LIB)
 
 # Perl helper
 libexec_SCRIPTS = url_lfs_rewrite
