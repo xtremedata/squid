@@ -3,6 +3,7 @@
 **/*.o
 **/*.in
 **/.deps
+**/.*.swp
 **/Makefile
 **/errors/*.lang
 **/.dirstamp

@@ -27,41 +27,51 @@ License:  		GPLv2+ and (LGPLv2+ and MIT and BSD and Public Domain)
 
 # URL:                  http://xtremedatainc.com/ocf/doc/index.html
 Source0:                %{name}-%{version}.tar.gz
+#Source2:  		squid.init
+Source3:  		squid.logrotate
+Source4:  		squid.sysconfig
+Source5:  		squid.pam
+Source6:  		squid.nm
+##Source7:  		squid.service
+##Source8:  		cache_swap.sh
+##Source98: 		perl-requires-squid.sh
+##Source99: 		squid-migrate-conf.py
+
 Distribution:           CentOS
 Packager:               Radoslaw Garbacz <radoslaw.garbacz@xtremedatainc.com>
 
 #Buildroot: 		%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRoot:              %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
-Requires: bash >= 2.0
-Requires: squid-migration-script
-Requires(pre): shadow-utils
-Requires(post): /sbin/chkconfig
-Requires(preun): /sbin/chkconfig
-Requires(post): systemd
-Requires(preun): systemd
-Requires(postun): systemd
+Requires: 		bash >= 2.0
+Requires: 		squid-migration-script
+Requires(pre): 		shadow-utils
+Requires(post): 	/sbin/chkconfig
+Requires(preun): 	/sbin/chkconfig
+Requires(post): 	systemd
+Requires(preun): 	systemd
+Requires(postun): 	systemd
 # squid_ldap_auth and other LDAP helpers require OpenLDAP
-BuildRequires: openldap-devel
+BuildRequires: 		openldap-devel
 # squid_pam_auth requires PAM development libs
-BuildRequires: pam-devel
+BuildRequires: 		pam-devel
 # SSL support requires OpenSSL
-BuildRequires: openssl-devel
+BuildRequires: 		openssl-devel
 # squid_kerb_aut requires Kerberos development libs
-BuildRequires: krb5-devel
+BuildRequires: 		krb5-devel
 # ESI support requires Expat & libxml2
-BuildRequires: expat-devel libxml2-devel
+BuildRequires: 		expat-devel libxml2-devel
 # TPROXY requires libcap, and also increases security somewhat
-BuildRequires: libcap-devel
+BuildRequires: 		libcap-devel
 # eCAP support
-BuildRequires: libecap-devel >= 1.0.0
+BuildRequires: 		libecap-devel >= 1.0.0
 # 
-BuildRequires: libtool libtool-ltdl-devel
+BuildRequires: 		libtool libtool-ltdl-devel
 # For test suite
-BuildRequires: cppunit-devel
+BuildRequires: 		cppunit-devel
 # DB helper requires
-BuildRequires: perl-podlators libdb-devel
+BuildRequires: 		perl-podlators libdb-devel
 # c++ source files
-BuildRequires: gcc-c++
+BuildRequires: 		gcc-c++
 
 
 #, python-psutil >= 2.2.1
@@ -162,7 +172,7 @@ ScriptAlias /Squid/cgi-bin/cachemgr.cgi %{_libdir}/squid/cachemgr.cgi
 </Location>" > %{buildroot}/squid.httpd.tmp
 
 
-mkdir -p %{buildroot}%{_sysconfdir}/rc.d/init.d
+#mkdir -p %{buildroot}%{_sysconfdir}/rc.d/init.d
 mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
 mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
 mkdir -p %{buildroot}%{_sysconfdir}/pam.d
@@ -172,14 +182,15 @@ mkdir -p %{buildroot}%{_unitdir}
 mkdir -p %{buildroot}%{_libexecdir}/squid
 mkdir -p %{buildroot}%{_prefix}/lib/firewalld/services
 
-##install -m 755 %{SOURCE2} %{buildroot}%{_sysconfdir}/rc.d/init.d/squid
-##install -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/squid
-##install -m 644 %{SOURCE4} %{buildroot}%{_sysconfdir}/sysconfig/squid
-##install -m 644 %{SOURCE5} %{buildroot}%{_sysconfdir}/pam.d/squid
+#install -m 755 %{SOURCE2} %{buildroot}%{_sysconfdir}/rc.d/init.d/squid
+install -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/squid
+install -m 644 %{SOURCE4} %{buildroot}%{_sysconfdir}/sysconfig/squid
+install -m 644 %{SOURCE5} %{buildroot}%{_sysconfdir}/pam.d/squid
 ##install -m 644 %{SOURCE7} %{buildroot}%{_unitdir}
 ##install -m 755 %{SOURCE8} %{buildroot}%{_libexecdir}/squid
 install -m 644 %{buildroot}/squid.httpd.tmp %{buildroot}%{_sysconfdir}/httpd/conf.d/squid.conf
-##install -m 644 %{SOURCE6} %{buildroot}%{_sysconfdir}/NetworkManager/dispatcher.d/20-squid
+install -m 644 %{SOURCE6} %{buildroot}%{_sysconfdir}/NetworkManager/dispatcher.d/20-squid
+
 mkdir -p %{buildroot}%{_var}/log/squid
 mkdir -p %{buildroot}%{_var}/spool/squid
 mkdir -p %{buildroot}%{_var}/run/squid
@@ -328,7 +339,7 @@ done
 
 %{_unitdir}/squid.service
 %attr(755,root,root) %dir %{_libexecdir}/squid
-%attr(755,root,root) %{_libexecdir}/squid/cache_swap.sh
+#%attr(755,root,root) %{_libexecdir}/squid/cache_swap.sh
 %attr(755,root,root) %dir %{_sysconfdir}/squid
 %attr(755,root,root) %dir %{_libdir}/squid
 %attr(750,squid,squid) %dir %{_var}/log/squid
