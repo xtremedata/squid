@@ -11,7 +11,7 @@ cfgaux
 squid*.tar.gz
 squid*.tar.bz2
 squid*.tar.xz
-squid.spec
+!squid.spec
 configure
 config.status
 config.log
