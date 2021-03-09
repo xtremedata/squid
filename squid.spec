@@ -1,7 +1,7 @@
 %define __perl_requires %{SOURCE98}
 
 Name:     squid
-Version:  4.13.1
+Version:  6.0.0
 Release:  1%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
