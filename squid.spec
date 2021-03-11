@@ -1,8 +1,8 @@
 %define __perl_requires %{SOURCE98}
 
 Name:     squid
-Version:  6.0.0
-Release:  1%{?dist}
+Version:  4.13
+Release:  2%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
 Provides: squid
@@ -90,7 +90,7 @@ lookup program (dnsserver), a program for retrieving FTP data
 (ftpget), and some management and client tools.
 
 %prep
-# %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 
 # Upstream patches
@@ -260,6 +260,18 @@ rm -f $RPM_BUILD_ROOT/squid.httpd.tmp
 %{_libdir}/squid/*
 %{_datadir}/snmp/mibs/SQUID-MIB.txt
 %{_tmpfilesdir}/squid.conf
+
+
+%pretrans
+
+for legacy_dir in /usr/share/squid/errors/zh-cn /usr/share/squid/errors/zh-tw; do
+        [ -h $legacy_dir ] || { 
+                [ -d $legacy_dir ] && {
+                        rm -fR $legacy_dir;
+                };
+        }; true;
+done;
+
 
 %pre
 if ! getent group squid >/dev/null 2>&1; then
